@@ -13,13 +13,13 @@
 #include <math.h>
 
 #define LED_QUANTITY 150
-#define LED_IN_SEED 10
+#define LED_IN_SEED 20
 
 #define START_R 0xff
 #define START_G 0x00
 #define START_B 0x00
 #define END_R 0x00
-#define END_G 0xee
+#define END_G 0x00
 #define END_B 0xff
 
 #define COMPRESS_VALUE 5.0
@@ -92,14 +92,7 @@ void countNextColorPosition(void)
 	float firstPoint  = prevVector*abcisePosition;
 	float secondPoint = nextVector*(abcisePosition - 1.0);
 	interpolatedPoint = (2.0*(firstPoint - secondPoint)*powf(abcisePosition, 4.0) - (3.0*firstPoint - 5.0*secondPoint)*powf(abcisePosition, 3.0) - 3*secondPoint*powf(abcisePosition, 2.0) + firstPoint*abcisePosition)*COMPRESS_VALUE;
-
-	if (interpolatedPoint > 1)
-	{
-		interpolatedPoint = 1;
-	} else if (interpolatedPoint < -1) 
-	{
-		interpolatedPoint = -1;
-	}
+	interpolatedPoint = ((expf(interpolatedPoint*COMPRESS_VALUE)-expf(-1*interpolatedPoint*COMPRESS_VALUE)))/(expf(interpolatedPoint*COMPRESS_VALUE)+expf(-1*interpolatedPoint*COMPRESS_VALUE));
 
 	abcisePosition += 1.0/LED_IN_SEED;
 
@@ -170,7 +163,7 @@ int main(void)
 		countNextColorPosition();
 		moveArray();
 
-		_delay_ms(10);
+		_delay_ms(50);
     }
 }
 

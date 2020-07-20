@@ -13,18 +13,18 @@
 #include <math.h>
 
 #define LED_QUANTITY 150
-#define LED_IN_SEED 60
+#define LED_IN_SEED 40
 
-#define MOOVE_SPEED 10
+#define MOOVE_SPEED 40
 
 #define START_R 0xff
 #define START_G 0x00
 #define START_B 0x00
 #define END_R 0x00
 #define END_G 0x00
-#define END_B 0x00
+#define END_B 0xff
 
-#define COMPRESS_VALUE 7.0
+#define COMPRESS_VALUE 35.0
 
 #define ClearOutBit PORTC &= ~(1<<1)
 #define SetOutBit   PORTC |= (1<<1)
